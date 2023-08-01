@@ -1,4 +1,5 @@
 
+
 ```markdown
 # Next Word Predictor Flask App
 
@@ -11,42 +12,19 @@ Before running the Flask app using Docker, ensure you have Docker installed on y
 
 ## How to Use
 
-1. **Clone the repository** to your local machine:
+1. **Pull the Docker image** from Docker Hub:
 
    ```bash
-   git clone https://github.com/vanshpundir/NextWordPredictor.git
-   cd NextWordPredictor
+   docker pull vanshm44/dockerhub:your_image_name
    ```
 
-2. **Install the required Python packages** by running:
+2. **Run the Docker container**:
 
    ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run the Flask app locally** (optional step to test the app without Docker):
-
-   ```bash
-   python app.py
+   docker run -p 8080:8080 vanshm44/dockerhub:your_image_name
    ```
 
    The app will be accessible at [http://localhost:8080](http://localhost:8080).
-
-4. **(Using Docker)** **Build the Docker image**:
-
-   ```bash
-   docker build -t next_word_app .
-   ```
-
-   This will create a Docker image named `next_word_app` based on the provided Dockerfile.
-
-5. **(Using Docker)** **Run the Docker container**:
-
-   ```bash
-   docker run -p 8080:8080 next_word_app
-   ```
-
-   The app will be accessible at [http://localhost:8080](http://localhost:8080), just like when running it without Docker.
 
 ## Project Structure
 
@@ -58,10 +36,7 @@ Before running the Flask app using Docker, ensure you have Docker installed on y
 ## Notes
 
 - The Flask app is configured to run on port 8080 inside the Docker container. If you need to use a different port, update the `app.run()` statement in `app.py`.
-- The Dockerfile sets up the necessary environment and installs the required Python packages mentioned in `requirements.txt`.
+- The Docker image is hosted on Docker Hub under the repository `vanshm44/dockerhub` with the tag `your_image_name`.
 - If you encounter any issues or have suggestions, feel free to open an issue or submit a pull request.
 
 Enjoy predicting the next word with this Flask app! 🚀
-```
-
-Now, the `README.md` content is updated and formatted correctly for the provided GitHub repository link.

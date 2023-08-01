@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Predictor</title>
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f9f9f9;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      text-align: center;
+      
+      padding: 20px;
+      border-radius: 8px;
+      background-image: linear-gradient(45deg, #FFE8DF, #FFEFD1, #FFF4F7, #D4E7FF, #B0E9FF);
+      background-size: 300% 300%;
+      animation: gradientAnimation 5s linear infinite;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    
+    
+    
+  
+    
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5em;
+      color: transparent;
+      background-image: linear-gradient(45deg, #00bfff, #f92e6a, #ffcc00);
+      background-clip: text;
+      -webkit-background-clip: text;
+      animation: textAnimation 2s linear infinite;
+    }
+    
+    @keyframes textAnimation {
+      0% {
+        background-position: -200%;
+      }
+      100% {
+        background-position: 200%;
+      }
+    }
+    
+    #search_text {
+      width: 50vh;
+      height: 3vh;
+      padding: 2px 7px;
+    }
+    #suggestions {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      padding: 10px;
+      z-index: 1;
+      width: 300px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      text-align: left;
+      transform: scale(1);
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    #suggestions:hover {
+      transform: scale(1.05);
+    }
+    
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form action="\predict" method="post">
+      <h1>Word Predictor</h1>
+      <input type="text" id="search_text" name="search_text" onkeyup="showSuggestions()" placeholder="Search">
+      <div id="suggestions"></div>
+    </form>
+  </div>
+  <script>
+    const searchInput = document.getElementById('search_text');
+    const suggestions = document.getElementById('suggestions');
+
+    function showSuggestions() {
+      const searchText = searchInput.value.toLowerCase();
+      while (suggestions.firstChild) {
+        suggestions.removeChild(suggestions.firstChild);
+      }
+      fetch('/predict', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'search_text=' + encodeURIComponent(searchText)
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(matchingWords => {
+        if (matchingWords.length > 0) {
+          const suggestion = document.createElement('div');
+          suggestion.textContent = matchingWords;
+          suggestion.onclick = function() {
+            searchInput.value = matchingWords;
+            suggestions.style.display = 'none';
+          };
+          suggestion.style.cursor='pointer';
+          suggestions.appendChild(suggestion);
+          suggestions.style.display = 'block';
+        } else {
+          suggestions.style.display = 'none';
+        }
+        if (searchInput.value == "") {
+          suggestions.style.display = 'none';
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  </script>
+</body>
+</html>

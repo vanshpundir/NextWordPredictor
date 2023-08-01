@@ -17,6 +17,7 @@ def index():
     return render_template('index.html')
 
 
+
 @app.route('/predict', methods=['POST'])
 def predict():
     search_text = request.form['search_text'].lower()

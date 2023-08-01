@@ -30,18 +30,7 @@ Before running the Flask app using Docker, ensure you have Docker installed on y
    ```
 
    This command will build the Docker image with the name `next-word-predictor` based on the `Dockerfile` provided in the repository.
-
-3. **Alternatively, pull the Docker image from Docker Hub**:
-
-   If you prefer not to build the image locally, you can pull the pre-built Docker image from Docker Hub by running the following command:
-
-   ```bash
-   docker pull vanshm44/dockerhub:your_image_name
-   ```
-
-   Replace `your_image_name` with the specific tag of the Docker image you want to use. If no tag is specified, it will default to `latest`.
-
-4. **Run the Docker container**:
+3. **Run the Docker container**:
 
    After building the Docker image or pulling it from Docker Hub (based on your preference), run the following command to start the Flask app in the Docker container:
 
@@ -50,6 +39,21 @@ Before running the Flask app using Docker, ensure you have Docker installed on y
    ```
 
    The Flask app will be accessible at [http://localhost:8080](http://localhost:8080).
+
+4. **Alternatively, pull the Docker image from Docker Hub**:
+
+   If you prefer not to build the image locally, you can pull the pre-built Docker image from Docker Hub by running the following command:
+
+   ```bash
+   docker pull vanshm44/dockerhub:your_image_name
+   ```
+
+
+   ```bash
+   docker run -p 8080:8080 vanshm44/dockerhub:your_image_name
+   ```
+
+
 
 ## Project Structure
 
